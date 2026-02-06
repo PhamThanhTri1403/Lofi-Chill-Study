@@ -1,0 +1,157 @@
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 169, 82, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(243, 169, 82, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(243, 169, 82, 0);
+  }
+}
+
+.music-player {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  gap: 24px;
+  z-index: 100;
+  min-width: 300px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    background: rgba(22, 22, 35, 0.85);
+    transform: translateX(-50%) translateY(-4px);
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), 
+                0 0 20px rgba(243, 169, 82, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .song-info {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateX(2px);
+    }
+    
+    .song-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .song-artist {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .music-player--controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .control-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+      padding: 0;
+      opacity: 0.8;
+
+      &:hover {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+        filter: invert(1); /* Make icons white if they aren't */
+      }
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      
+      img {
+        width: 18px;
+        height: 18px;
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(243, 169, 82, 0.4);
+      }
+      
+      /* Optional: Add active class via JS if playing, or just rely on hover for now */
+      &:active {
+        transform: scale(0.95);
+        animation: pulse-glow 1s infinite;
+      }
+    }
+
+    .playlist-btn {
+      margin-left: 8px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      
+      &:hover {
+        color: #f3a952;
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .music-player {
+    bottom: 80px; /* Above bottom nav/footer if any */
+    padding: 10px 16px;
+    min-width: auto;
+    width: 90%;
+    
+    .song-info {
+      .song-name {
+        font-size: 14px;
+        max-width: 140px;
+      }
+    }
+    
+    .music-player--controls {
+      gap: 12px;
+    }
+  }
+}

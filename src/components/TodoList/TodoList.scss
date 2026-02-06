@@ -1,0 +1,121 @@
+.todoList {
+  height: auto;
+  min-height: 200px;
+  
+  form {
+    margin-bottom: 20px;
+    
+    input.form-control {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 15px;
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      
+      &:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #f3a952;
+        box-shadow: 0 0 0 4px rgba(243, 169, 82, 0.1);
+      }
+    }
+    
+    button {
+      background: #f3a952;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      width: 100%;
+      
+      &:hover {
+        background: #e09641;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.todolistList {
+  height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  .list-group-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 8px;
+    border-radius: 12px !important;
+    color: #fff;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    &.list-group-item-success {
+      background: rgba(40, 167, 69, 0.2);
+      border-color: rgba(40, 167, 69, 0.3);
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+    
+    .row {
+      align-items: center;
+    }
+    
+    button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+      
+      &.btn-success {
+        background: rgba(40, 167, 69, 0.8);
+        border: none;
+      }
+      
+      &.btn-danger {
+        background: rgba(220, 53, 69, 0.8);
+        border: none;
+      }
+      
+      &.btn-dark {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        
+        &:hover {
+          background: rgba(220, 53, 69, 0.8);
+        }
+      }
+    }
+  }
+}
+
+/* Empty state styling */
+.list-group-item.text-center {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,65 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import Header from './components/Header/Header';
+import About from './components/About/About';
+import { getUserAuth, applyScheduledTheme } from './redux/actions';
+import { MusicProvider } from './contexts/MusicContext';
+import Intro from './components/Intro/Intro';
+
+function App() {
+  const dispatch = useDispatch();
+  const [showIntro, setShowIntro] = useState(true);
+
+  const handleIntroFinish = () => {
+    setShowIntro(false);
+  };
+
+  useEffect(() => {
+    dispatch(getUserAuth());
+    
+    // Khởi tạo thời gian thay đổi giao diện khi ứng dụng khởi động
+    dispatch(applyScheduledTheme());
+    
+    // Thiết lập interval để kiểm tra và áp dụng thay đổi giao diện mỗi phút
+    const themeInterval = setInterval(() => {
+      dispatch(applyScheduledTheme());
+    }, 60000); // 60 giây
+    
+    return () => clearInterval(themeInterval);
+  }, [dispatch]);
+
+  const introVideoSrc = (() => {
+    try {
+      return sessionStorage.getItem('introVideoSrc') || '/assets/video/autumn-bedroom-moewalls-com.mp4';
+    } catch (e) {
+      return '/assets/video/autumn-bedroom-moewalls-com.mp4';
+    }
+  })();
+
+  return (
+    <MusicProvider>
+      <BrowserRouter>
+        {showIntro && (
+          <Intro onFinish={handleIntroFinish} videoSrc={introVideoSrc} />
+        )}
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <Header /> <Home />
+              </>
+            }
+          />
+          <Route path='/login' element={<Login />} exact />
+          <Route path='/about' element={<About />} exact />
+        </Routes>
+      </BrowserRouter>
+    </MusicProvider>
+  );
+}
+
+export default App;
